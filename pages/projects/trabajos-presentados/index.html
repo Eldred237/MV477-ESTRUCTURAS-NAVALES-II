@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trabajos presentados | MV477</title>
+  <style>
+    :root { color-scheme: light; --azul: #08799a; --amarillo: #f4cf45; --borde: #d9d9d9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #222; background: #f5f5f5; font-family: Arial, Helvetica, sans-serif; }
+    .barra { padding: 10px max(24px, calc((100% - 1100px) / 2)); color: #fff; background: #000; font-size: 14px; font-weight: 700; }
+    header { padding: 22px max(24px, calc((100% - 1100px) / 2)); color: #fff; background: var(--azul); border-bottom: 5px solid var(--amarillo); }
+    header p { margin: 0 0 8px; font-size: 14px; font-weight: 700; }
+    header h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); }
+    main { width: min(900px, calc(100% - 32px)); margin: 28px auto; padding: 28px; background: #fff; box-shadow: 0 1px 5px #0002; }
+    .volver { display: inline-block; margin-bottom: 18px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; border: 1px solid var(--borde); text-align: left; }
+    th { background: #efefef; }
+    tr:nth-child(even) td { background: #fafafa; }
+    a { color: #006b8d; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+    .sin-entrega { color: #777; }
+    .no-asistio { color: #c62828; font-weight: 700; }
+    .archivo-adicional { margin-left: 8px; font-size: .9em; white-space: nowrap; }
+    .nota { padding: 12px 14px; background: #fff8dc; border-left: 4px solid var(--amarillo); }
+    @media (max-width: 600px) { main { padding: 18px; } th, td { padding: 9px 7px; } }
+  </style>
+</head>
+<body>
+  <div class="barra">UNI | FIM | DACI</div>
+  <header>
+    <p>MV477 | 2026-II | Ingeniería Naval</p>
+    <h1 id="titulo">Trabajos presentados</h1>
+  </header>
+  <main>
+    <a class="volver" href="../index.html">← Volver a Projects</a>
+    <table>
+      <thead><tr><th>N.º</th><th>Alumno</th><th>Observación</th></tr></thead>
+      <tbody id="lista-alumnos"></tbody>
+    </table>
+  </main>
+  <script>
+    const alumnos = [
+      'A. C., EMERSON HARLEY',
+      'C. L., ZAHIR EDUARDO',
+      'C. C., JOSUE JANDY',
+      'C. C., YORKTHAN JUSTO',
+      'C. P., RICHARD WALTER',
+      'C. S., WELINTON RAUL',
+      'C. F., PIERRE SAMUEL',
+      'F. T., DANNA CAMILA',
+      'J. F., MIRELLA JUANITA',
+      'M. C., EDUARDO LEON',
+      'N. L., ALEXANDER FRANCISCO',
+      'R. L., CARLOS ANDRES',
+      'S. S., JEFFERSON DAVID',
+      'V. G., JOSE MELCHOR'
+    ];
+
+    // Archivos efectivamente presentados, organizados por proyecto y número de orden.
+    // Se admiten PDF, PNG, JPG y JPEG. Si un alumno tiene varias páginas, se agregan
+    // todos sus archivos en el mismo arreglo.
+    const entregas = {};
+    const parametro = Number(new URLSearchParams(location.search).get('proyecto'));
+    const proyecto = Number.isInteger(parametro) && parametro >= 1 && parametro <= 9 ? parametro : 1;
+    const numeroProyecto = String(proyecto).padStart(2, '0');
+
+    document.title = `Trabajos presentados — Proyecto ${proyecto} | MV477`;
+    document.getElementById('titulo').textContent = `Trabajos presentados — Proyecto ${proyecto}`;
+    document.getElementById('lista-alumnos').innerHTML = alumnos.map((nombre, indice) => {
+      const numeroOrden = indice + 1;
+      const archivos = entregas[proyecto]?.[numeroOrden] || [];
+      if (!archivos.length) {
+        return `<tr><td>${numeroOrden}</td><td>${nombre}</td><td></td></tr>`;
+      }
+
+      const rutaBase = `../../../static_resources/trabajos-presentados/proyecto-${numeroProyecto}/`;
+      const enlacePrincipal = `${rutaBase}${encodeURIComponent(archivos[0])}`;
+      const adicionales = archivos.slice(1).map((archivo, posicion) =>
+        `<a class="archivo-adicional" href="${rutaBase}${encodeURIComponent(archivo)}" target="_blank" rel="noopener">Archivo ${posicion + 2}</a>`
+      ).join('');
+      const sesion = archivos[0].match(/\bS\d+\b/i)?.[0].toUpperCase() || 'Presentado';
+      return `<tr><td>${numeroOrden}</td><td><a href="${enlacePrincipal}" target="_blank" rel="noopener">${nombre}</a>${adicionales}</td><td>${sesion}${archivos.length > 1 ? ` · ${archivos.length} archivos` : ''}</td></tr>`;
+    }).join('');
+  </script>
+</body>
+</html>

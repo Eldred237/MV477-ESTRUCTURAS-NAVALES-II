@@ -1,0 +1,30 @@
+ORGANIZACION DE LOS TRABAJOS PRESENTADOS
+
+Cree una carpeta por proyecto con los nombres proyecto-01, proyecto-02, ..., proyecto-14.
+Dentro de cada carpeta coloque los trabajos comenzando con el numero de orden del
+alumno y la sesion. Por ejemplo: 01. S2.png o 03. S2.pdf.
+
+FORMATOS ADMITIDOS
+
+PDF, PNG, JPG y JPEG.
+
+Los archivos actualmente publicados se registran en el objeto "entregas" de:
+pages/projects/trabajos-presentados/index.html
+
+El numero de orden corresponde a esta lista:
+
+01 B. M., JHAIR FRANZ
+02 C. M., RIVALDO
+03 C. E., LUIS JOSE
+04 D. L., JOHN ALDAHIR
+05 I. C., BRAULIO ALAIN
+06 M. S., ANTONIO LEANDRO
+07 O. P., JORGE FLAVIO
+08 Q. H., GIANFRANCO NAIDU
+09 R. F., YARITZA SOLEYKA
+10 R. E., NICOLAS RAMSES
+11 S. V., LUIS ANGEL SEBASTIAN
+12 S. S., CRISTHOFER ALEXANDER
+13 V. A., KENYI WALTER
+14 V. S., JESUS EMMANUEL
+15 A. S., JUAN CARLO

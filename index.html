@@ -1,0 +1,1748 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta name="generator" content="Hugo 0.142.0">
+    
+    <link href="./static_shared/css/course_offline.d262d.css" rel="stylesheet">
+    
+
+    
+    <link href="./static_shared/css/common.d262d.css" rel="stylesheet">
+    
+
+
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Estructuras Navales II (MV477) es un curso de la carrera de Ingeniería Naval orientado al análisis del comportamiento estructural de los buques y al desarrollo de la capacidad para resolver problemas de ingeniería. El curso parte de los conocimientos previos de estática, resistencia de materiales y teoría de vigas, y avanza progresivamente hacia el análisis de la viga-buque, esfuerzos en estructuras navales, métodos matriciales, elementos finitos, placas, paneles reforzados, pandeo y criterios de diseño estructural. Además del dominio de los contenidos, el curso busca que el estudiante desarrolle autonomía para enfrentarse a problemas nuevos, seleccionar modelos apropiados, utilizar herramientas computacionales y evaluar críticamente sus resultados.">
+  <meta property="og:site_name" content="Estructuras Navales II">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MV477 Estructuras Navales II | Universidad Nacional de Ingeniería" />
+  <meta property="og:description" content="Estructuras Navales II (MV477) es un curso de la carrera de Ingeniería Naval orientado al análisis del comportamiento estructural de los buques y al desarrollo de la capacidad para resolver problemas de ingeniería. El curso parte de los conocimientos previos de estática, resistencia de materiales y teoría de vigas, y avanza progresivamente hacia el análisis de la viga-buque, esfuerzos en estructuras navales, métodos matriciales, elementos finitos, placas, paneles reforzados, pandeo y criterios de diseño estructural. Además del dominio de los contenidos, el curso busca que el estudiante desarrolle autonomía para enfrentarse a problemas nuevos, seleccionar modelos apropiados, utilizar herramientas computacionales y evaluar críticamente sus resultados." />
+  <meta name="twitter:description" content="Estructuras Navales II (MV477) es un curso de Ingeniería Naval orientado al análisis estructural de buques, los métodos matriciales, los elementos finitos, las placas, los paneles reforzados, el pandeo y el diseño estructural." />
+  <title>MV477 Estructuras Navales II | Universidad Nacional de Ingeniería</title>
+  <style>
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(./static_shared/fonts/MaterialIcons-Regular.subset.84f45410d085472240e2.woff2) format('woff2'),
+      url(./static_shared/fonts/MaterialIcons-Regular.subset.8167faf7e3a9170d282a.woff) format('woff'),
+      url(./static_shared/fonts/MaterialIcons-Regular.subset.0beb27f30d92440091b4.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Material Icons Round';
+    font-style: normal;
+    font-weight: 400;
+    src: local("MaterialIcons-Round"),
+    url(./static_shared/fonts/MaterialIconsRound-Regular.subset.7154eae1d0e60e0dabe4.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Cardo Bold';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Cardo'),
+      local('Cardo-Bold'),
+      url(./static_shared/fonts/Cardo-Bold.d7bf1aa6f322a64b2fc3.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Cardo Italic';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Cardo'),
+      local('Cardo-Italic'),
+      url(./static_shared/fonts/Cardo-Italic.0935d2ebbc05be3559b1.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Helvetica Light';
+    font-style: normal`;
+    font-weight: 400;
+    src: local('Helvetica Light'),
+      local('Helvetica-Light'),
+      url(./static_shared/fonts/Helvetica-Light.70359849afb40079a1c8.ttf) format('truetype');
+  }
+  .external-link.nav-link::after {
+    background-image: url('./static_shared/images/external_link.58bbdd86c00a2c146c36.svg'); 
+  }
+  .course-pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .course-pillar, .polya-panel, .evaluation-panel {
+    border: 1px solid #d7dce2;
+    border-radius: 0.4rem;
+    padding: 1.25rem;
+    background: #fff;
+  }
+  .course-pillar h3, .polya-panel h3, .evaluation-panel h3 {
+    margin-top: 0;
+  }
+  .course-pillar-monday { border-top: 5px solid #1f5f8b; }
+  .course-pillar-wednesday { border-top: 5px solid #a31f34; }
+  .course-meta-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 1.25rem;
+    margin: 1rem 0 0;
+  }
+  .course-meta-list div { border-left: 3px solid #a31f34; padding-left: 0.75rem; }
+  .course-meta-list dt { font-weight: 700; }
+  .course-meta-list dd { margin: 0.15rem 0 0; }
+  .course-cycle {
+    font-weight: 700;
+    line-height: 1.7;
+    text-align: center;
+    color: #2d3748;
+  }
+  .course-principle {
+    margin: 1.25rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 5px solid #a31f34;
+    background: #f5f6f7;
+    font-size: 1.1rem;
+  }
+  .course-site-brand {
+    --institution-z: 0.918rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.18;
+    text-decoration: none;
+  }
+  .course-site-brand .institution-name {
+    color: #ffffff;
+    font-size: var(--institution-z);
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+  .course-site-brand .institution-unit {
+    color: #e7f4fa;
+    font-weight: 500;
+    letter-spacing: 0.012em;
+    margin-top: 0.16rem;
+  }
+  .course-site-brand .institution-unit:nth-child(2) {
+    font-size: calc(var(--institution-z) * 0.85);
+  }
+  .course-site-brand .institution-unit:nth-child(3) {
+    color: #c8e7f3;
+    font-size: calc(var(--institution-z) * 0.7);
+  }
+  .course-site-brand:hover { color: #fff; text-decoration: none; }
+  #desktop-header,
+  #mobile-header,
+  #mobile-header .navbar {
+    background-color: #000000 !important;
+  }
+  #desktop-header,
+  #mobile-header {
+    background-color: #000000 !important;
+  }
+  #desktop-header {
+    height: 48px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+    box-shadow: 0 2px 10px rgba(3, 43, 62, 0.16);
+  }
+  #desktop-header .contents .right > a {
+    border-bottom: 3px solid transparent;
+    color: #fff !important;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700 !important;
+    letter-spacing: 0.045em;
+    padding-bottom: 0.55rem !important;
+    text-transform: uppercase;
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+  #desktop-header .contents .right > a:hover,
+  #desktop-header .contents .right > a:focus {
+    background-color: rgba(0, 63, 91, 0.16);
+    border-bottom-color: #f6d365;
+    text-decoration: none;
+  }
+  #course-banner {
+    background: #0A7093 !important;
+    border-bottom: 4px solid #F6D365;
+  }
+  #course-banner .course-number-term-detail {
+    color: #ffffff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 650;
+    letter-spacing: 0.035em;
+  }
+  #course-banner h1 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 2.35rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  /* Oculta metadatos heredados de MIT OCW que no pertenecen al curso. */
+  .course-info .col-12.col-sm-6:has(.course-info-topic),
+  #course-info-drawer > .mt-4:has(.course-info-topic),
+  #course-info-drawer > div:has(> h5.course-detail-title.panel-course-info-title),
+  section.course-detail-section:has(.learning-resource-type-item),
+  .footer {
+    display: none !important;
+  }
+  @media (max-width: 767px) {
+    .course-pillars, .course-meta-list { grid-template-columns: 1fr; }
+    .course-site-brand { --institution-z: 0.708rem; max-width: 245px; text-align: center; }
+    .course-site-brand .institution-name { letter-spacing: 0.025em; }
+    #mobile-header .navbar { min-height: 38.4px; }
+    #mobile-header .nav-link { color: #fff; font-size: 0.88rem; font-weight: 650; }
+    #course-banner h1 { font-size: 1.85rem; }
+    #course-banner .course-number-term-detail { font-size: 0.75rem; }
+  }
+  /* Course Info: conservar solo instructor y representantes estudiantiles. */
+  .course-info .col-12 > .mt-4:has(.course-info-department),
+  .course-info .col-12 > .mt-4:has(.course-info-department) ~ .mt-4,
+  .course-info .col-12.col-sm-6:has(.course-info-topic),
+  #course-info-drawer > .mt-4:has(.course-info-topic),
+  #course-info-drawer > div:has(> h5.course-detail-title.panel-course-info-title),
+  #desktop-course-drawer .mt-4:has(.course-info-topic),
+  #course-info-drawer > .course-info ~ *,
+  #desktop-course-drawer > .px-3,
+  section.course-detail-section:has(.learning-resource-type-item) {
+    display: none !important;
+  }
+  </style>
+</head>
+
+
+<body class="course-home-page">
+  <div class="overflow-auto">
+    <span class="course-header">
+      <div
+  id="mobile-course-nav"
+  class="navbar-offcanvas offcanvas-toggle offcanvas-toggle-close medium-and-below-only drawer">
+  <h3 class="my-4 d-flex align-items-center justify-content-between">
+    Browse Course Material
+    <button
+      class="btn"
+      type="button"
+      aria-label="Close Course Menu"
+      onclick="$('#mobile-course-nav-toggle').click();"
+      id="close-mobile-course-menu-button"
+      >
+      <img
+        src="./static_shared/images/close_small.b0a2684ccc0da6407a56.svg"
+        alt=""
+        width="12px"
+      />
+    </button>
+  </h3>
+  
+
+<nav class="course-nav" aria-label="Course materials">
+  <ul class="w-100 m-auto list-unstyled">
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="0134f860-c007-b8a0-1a19-b8f4c7b0acc4"
+           href="./pages/syllabus/index.html" >
+          Syllabus
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_mobile_0134f860-c007-b8a0-1a19-b8f4c7b0acc4"
+    aria-labelledby="nav-button_mobile_0134f860-c007-b8a0-1a19-b8f4c7b0acc4"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="5a5b1677-ecc3-edc0-b76b-f5ff5621b159"
+           href="./pages/calendar/index.html" >
+          Calendar
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_mobile_5a5b1677-ecc3-edc0-b76b-f5ff5621b159"
+    aria-labelledby="nav-button_mobile_5a5b1677-ecc3-edc0-b76b-f5ff5621b159"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="d4138394-9188-7321-18e6-365bd6c9801f"
+           href="./pages/instructor-insights/index.html" >
+          Información del docente
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_mobile_d4138394-9188-7321-18e6-365bd6c9801f"
+    aria-labelledby="nav-button_mobile_d4138394-9188-7321-18e6-365bd6c9801f"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="a0d9fd3d-f345-b221-b489-c76e05c34cc5"
+           href="./pages/readings/index.html" >
+          Readings
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_mobile_a0d9fd3d-f345-b221-b489-c76e05c34cc5"
+    aria-labelledby="nav-button_mobile_a0d9fd3d-f345-b221-b489-c76e05c34cc5"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="eb131430-2300-bb30-a25a-3feae3bbac03"
+           href="./pages/projects/index.html" >
+          Projects
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_mobile_eb131430-2300-bb30-a25a-3feae3bbac03"
+    aria-labelledby="nav-button_mobile_eb131430-2300-bb30-a25a-3feae3bbac03"
+  >
+    
+  </ul>
+</li>
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="presentaciones-mv476"
+           href="./pages/presentations/index.html" >
+          Presentaciones
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_mobile_presentaciones-mv476"
+    aria-labelledby="nav-button_mobile_presentaciones-mv476"
+  >
+    
+  </ul>
+</li>
+
+    
+  </ul>
+</nav>
+
+</div>
+
+      <div
+  id="course-info-drawer"
+  class="bg-faded pt-3 bg-light navbar-offcanvas navbar-offcanvas-right medium-and-below-only drawer"
+>
+  <div class="col-12">
+    <button
+      class="btn close-mobile-course-info"
+      type="button"
+      aria-label="Close Course Info"
+      onclick="$('#mobile-course-info-toggle').click();"
+      id="close-mobile-course-info-button"
+      >
+      <img
+        class=""
+        src="./static_shared/images/close_small.b0a2684ccc0da6407a56.svg"
+        alt=""
+        width="12px"
+      />
+    </button>
+  </div>
+    
+
+<div class="course-info">
+  <div class="course-detail-title bg-light-gray">
+    <h2 class="font-black py-1 pl-3 m-0">
+      Course Info
+    </h2>
+  </div>
+  <div class="px-3 mt-4">
+    <div class="row">
+      <div class="col-12 ">
+        
+        <div class="">
+          
+          <h5 class="panel-course-info-title ">
+            Instructors
+            </h5>
+          <div class="course-info-content panel-course-info-text">
+            
+
+
+
+
+<ul class="list-unstyled m-0">
+  
+  
+  
+    
+  
+  <li>
+    <a class="course-info-instructor" href="mailto:evillacresg@uni.edu.pe">Msc. Ing. Eldred M. Villacrés Grandez</a>
+  </li>
+  
+  
+  
+    
+  
+  <li>
+    <span>evillacresg@uni.edu.pe</span>
+  </li>
+  <li class="mt-3">
+    <strong>Delegado</strong><br>
+    <span>Contreras Sanchez, Welinton Raul</span><br>
+    <a href="mailto:welinton.contreras.s@uni.pe">welinton.contreras.s@uni.pe</a>
+  </li>
+  <li class="mt-2 course-subdelegate">
+    <strong>Subdelegado</strong><br>
+    <span>Por definir</span>
+  </li>
+  <li class="mt-3 course-session">
+    <strong>Aula:</strong> A2-350<br>
+    <strong>T.P.L.:</strong> Teoría<br>
+    <strong>Horario:</strong> MI 13–16
+  </li>
+  <li class="mt-2 course-session">
+    <strong>Aula:</strong> CCLAB-2B<br>
+    <strong>T.P.L.:</strong> Práctica<br>
+    <strong>Horario:</strong> LU 10–13
+  </li>
+  
+</ul>
+
+
+          </div>
+        </div>
+        
+        
+          
+          
+            <div class="mt-4">
+              <h5 class="panel-course-info-title ">
+                Departments
+              </h5>
+              <div class="course-info-content panel-course-info-text">
+                
+
+
+
+
+<ul class="list-unstyled m-0">
+  
+  
+  
+    
+  
+  <li>
+    <a   class="course-info-department strip-link-offline"    href="https://ocw.mit.edu/search/?d=Mechanical&#43;Engineering"  >Mechanical Engineering</a>
+  </li>
+  
+</ul>
+
+
+              </div>
+            </div>
+          
+         
+        
+        <div class="mt-4">
+          <h5 class="panel-course-info-title ">
+            As Taught In
+          </h5>
+          <div class="course-info-content panel-course-info-text">
+            Fall
+            
+              2014
+            
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <h5 class="panel-course-info-title ">
+            Level
+          </h5>
+          <div class="course-info-content panel-course-info-text">
+            
+              
+                <a   class=" strip-link-offline"    href="https://ocw.mit.edu/search/?l=Undergraduate"  >Undergraduate</a><br />
+              
+            
+          </div>
+        </div>
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+  
+
+
+
+
+
+<div class=" mt-4">
+  <h5 class="panel-course-info-title ">
+    Topics
+  </h5>
+  <ul class="list-unstyled pb-2 m-0 panel-course-info-text">
+      <li>
+
+
+
+
+
+
+
+
+<div class="position-relative pt-1 pb-1 pl-4 ml-n2 ">
+  
+  <button
+    type="button"
+    class="topic-toggle border-0 bg-transparent pl-0"
+    data-target="#subtopic-container_mobile_0"
+    data-toggle="collapse"
+    aria-controls="subtopic-container_mobile_0"
+    aria-expanded="true"
+    aria-label="Engineering subtopics"
+  >
+    <i aria-hidden="true" class="material-icons"></i>
+  </button>
+  
+  <span class="topic-text-wrapper">
+    <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Engineering"  >Engineering</a></span>
+</div>
+
+<ul
+  class="pl-4 subtopic-container collapse show list-unstyled"
+  id="subtopic-container_mobile_0"
+  aria-label="Subtopics"
+>
+  
+  
+  
+  <li>
+    <div class="position-relative pt-1 pb-1  pl-4 ">
+      
+      <button
+        class="topic-toggle border-0 bg-transparent pl-0"
+        data-target="#speciality-container_mobile_0_0"
+        data-toggle="collapse"
+        aria-controls="speciality-container_mobile_0_0"
+        aria-expanded="true"
+        aria-label="Mechanical Engineering specialties"
+      >
+        <i aria-hidden="true" class="material-icons"></i>
+      </button>
+      
+      <span class="topic-text-wrapper">
+        
+        <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Mechanical&#43;Engineering"  >Mechanical Engineering</a></span>
+    </div>
+    <ul
+      class="collapse show list-unstyled"
+      id="speciality-container_mobile_0_0"
+      aria-label="Specialties"
+    >
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Fluid&#43;Mechanics"  >Fluid Mechanics</a></span>
+      </li>
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Mechanical&#43;Design"  >Mechanical Design</a></span>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  
+  <li>
+    <div class="position-relative pt-1 pb-1  pl-4 ">
+      
+      <button
+        class="topic-toggle border-0 bg-transparent pl-0"
+        data-target="#speciality-container_mobile_0_1"
+        data-toggle="collapse"
+        aria-controls="speciality-container_mobile_0_1"
+        aria-expanded="true"
+        aria-label="Ocean Engineering specialties"
+      >
+        <i aria-hidden="true" class="material-icons"></i>
+      </button>
+      
+      <span class="topic-text-wrapper">
+        
+        <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Ocean&#43;Engineering"  >Ocean Engineering</a></span>
+    </div>
+    <ul
+      class="collapse show list-unstyled"
+      id="speciality-container_mobile_0_1"
+      aria-label="Specialties"
+    >
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Hydrodynamics"  >Hydrodynamics</a></span>
+      </li>
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Ocean&#43;Structures"  >Ocean Structures</a></span>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+</ul>
+
+</li>
+      
+  </ul>
+</div>
+
+  
+
+
+
+<div class="">
+  <h5 class="course-detail-title panel-course-info-title mt-3">
+    Learning Resource Types
+  </h5>
+  <div>
+    <div class="row d-inline m-0">
+      
+        <div class="panel-course-info-text my-2">
+          
+
+<div class="">
+  <div class="d-flex">
+    <i aria-hidden="true" class="material-icons pr-1"><span class="material-icons-round">
+        co_present
+      </span></i>
+    <span>Información del docente</span>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="panel-course-info-text my-2">
+          
+
+<div class="">
+  <div class="d-flex">
+    <i aria-hidden="true" class="material-icons pr-1">group_work</i>
+    <span>Projects</span>
+  </div>
+</div>
+
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+  
+
+
+</div>
+
+      
+
+
+
+
+
+<div id="mobile-header" class="position-relative bg-black medium-and-below-only">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black d-flex">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="material-icons display-4 text-white align-bottom">menu</i>
+    </button>
+    <div class="mx-auto">
+      <a class="course-site-brand" href="./index.html">
+        <span class="institution-name">UNI | FIM | DACI</span>
+      </a>
+    </div>
+    <div class="user-menu-container"></div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto pl-2 pt-2">
+        <li class="nav-item"></li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./pages/syllabus/index.html">Programa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./pages/calendar/index.html">Calendario</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+<div id="desktop-header">
+  <div class="contents">
+    <div class="left">
+      <div class="ocw-logo">
+        <a class="course-site-brand" href="./index.html">
+          <span class="institution-name">UNI | FIM | DACI</span>
+        </a>
+      </div>
+    </div>
+    <div class="right">
+      
+      <a class="text-white text-decoration-none font-weight-bold px-3 py-2" href="./index.html">Inicio</a>
+      <a class="text-white text-decoration-none font-weight-bold px-3 py-2" href="./pages/syllabus/index.html">Programa</a>
+      <a class="text-white text-decoration-none font-weight-bold px-3 py-2" href="./pages/calendar/index.html">Calendario</a>
+      <div class="user-menu-container"></div>
+    </div>
+  </div>
+</div>
+
+<div id="user-list-modal-container"></div>
+<div id="create-user-list-modal-container"></div>
+      
+
+<div id="course-banner" class="p-0">
+  <div class="max-content-width course-banner-content m-auto py-3">
+    <div class="row">
+    <div class="col-11">
+      
+      <span class="course-number-term-detail">MV477 | 2026-II | Ingeniería Naval</span>
+      <br>
+      <br>
+      <h1>
+        <a
+          class="text-capitalize m-0 text-white"
+          href="./index.html"
+        >Estructuras Navales II</a>
+      </h1>
+    </div>
+    <div class="col-1"><div class="bookmark-button-container" data-resourcereadableid="2.700&#43;fall_2014"></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+    </span>
+    <div id="course-main-content">
+      <div class="row">
+        <div class="col-12 course-home-grid">
+          <div class="medium-and-below-only mb-3">
+            <div>
+  <button
+    id="mobile-course-nav-toggle"
+    class="mobile-course-nav-toggle-btn d-inline-flex align-items-center offcanvas-toggle"
+    data-toggle="offcanvas"
+    data-target="#mobile-course-nav"
+  >
+    <img src="./static_shared/images/expand.a062b1c47b121e3c7e03.svg" alt=""/>
+    <span class="pl-1">Menu</span>
+  </button>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row course-cards">
+        <div class="col-2 course-home-grid large-and-above-only">
+          <div class="card">
+  <div class="card-body pr-2">
+    
+
+<nav class="course-nav" aria-label="Course materials">
+  <ul class="w-100 m-auto list-unstyled">
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="0134f860-c007-b8a0-1a19-b8f4c7b0acc4"
+           href="./pages/syllabus/index.html" >
+          Syllabus
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_desktop_0134f860-c007-b8a0-1a19-b8f4c7b0acc4"
+    aria-labelledby="nav-button_desktop_0134f860-c007-b8a0-1a19-b8f4c7b0acc4"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="5a5b1677-ecc3-edc0-b76b-f5ff5621b159"
+           href="./pages/calendar/index.html" >
+          Calendar
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_desktop_5a5b1677-ecc3-edc0-b76b-f5ff5621b159"
+    aria-labelledby="nav-button_desktop_5a5b1677-ecc3-edc0-b76b-f5ff5621b159"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="d4138394-9188-7321-18e6-365bd6c9801f"
+           href="./pages/instructor-insights/index.html" >
+          Información del docente
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_desktop_d4138394-9188-7321-18e6-365bd6c9801f"
+    aria-labelledby="nav-button_desktop_d4138394-9188-7321-18e6-365bd6c9801f"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="a0d9fd3d-f345-b221-b489-c76e05c34cc5"
+           href="./pages/readings/index.html" >
+          Readings
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_desktop_a0d9fd3d-f345-b221-b489-c76e05c34cc5"
+    aria-labelledby="nav-button_desktop_a0d9fd3d-f345-b221-b489-c76e05c34cc5"
+  >
+    
+  </ul>
+</li>
+
+    
+      
+
+
+
+
+
+
+
+
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="eb131430-2300-bb30-a25a-3feae3bbac03"
+           href="./pages/projects/index.html" >
+          Projects
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_desktop_eb131430-2300-bb30-a25a-3feae3bbac03"
+    aria-labelledby="nav-button_desktop_eb131430-2300-bb30-a25a-3feae3bbac03"
+  >
+    
+  </ul>
+</li>
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      
+        <a class="text-dark nav-link"
+          data-uuid="presentaciones-mv476"
+           href="./pages/presentations/index.html" >
+          Presentaciones
+        </a>
+      
+    </span>
+    
+  </div>
+  
+  <span class="medium-and-below-only"><hr/></span>
+  
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_desktop_presentaciones-mv476"
+    aria-labelledby="nav-button_desktop_presentaciones-mv476"
+  >
+    
+  </ul>
+</li>
+
+    
+  </ul>
+</nav>
+
+  </div>
+</div>
+
+        </div>
+        <div class="col-12 col-md-8 col-lg-7 course-home-grid">
+          <div class="card">
+  <div class="card-body">
+    <section class="course-detail-section">
+      
+
+
+  
+  
+  
+
+<div id="course-description">
+  <h4 class="course-detail-title">
+    Sumilla
+  </h4>
+  
+  <div id="collapsed-description" class="description"><em>Estructuras Navales II (MV477)</em> es un curso de la carrera de Ingeniería Naval orientado al análisis del comportamiento estructural de los buques y al desarrollo de la capacidad para resolver problemas de ingeniería…<button id="expand-description" type="button" class="btn btn-link link-button p-0">Ver más</button></div>
+  <div id="expanded-description" class="description d-none"><em>Estructuras Navales II (MV477)</em> es un curso de la carrera de Ingeniería Naval orientado al análisis del comportamiento estructural de los buques y al desarrollo de la capacidad para resolver problemas de ingeniería. El curso parte de los conocimientos previos de estática, resistencia de materiales y teoría de vigas, y avanza progresivamente hacia el análisis de la viga-buque, esfuerzos en estructuras navales, métodos matriciales, elementos finitos, placas, paneles reforzados, pandeo y criterios de diseño estructural. Además del dominio de los contenidos, el curso busca que el estudiante desarrolle autonomía para enfrentarse a problemas nuevos, seleccionar modelos apropiados, utilizar herramientas computacionales y evaluar críticamente sus resultados.<button id="collapse-description" type="button" class="btn btn-link link-button p-0">Ver menos</button></div>
+  
+</div>
+
+<section aria-labelledby="curso-2026-ii">
+  <h2 id="curso-2026-ii" class="course-detail-title font-black">Estructuras Navales II · 2026-II</h2>
+  <h3>Visión general del curso</h3>
+  <p><em>Estructuras Navales II (MV477)</em> es un curso de la carrera de Ingeniería Naval orientado al análisis del comportamiento estructural de los buques y al desarrollo de la capacidad para resolver problemas de ingeniería.</p>
+  <p>El curso parte de los conocimientos previos de estática, resistencia de materiales y teoría de vigas, y avanza progresivamente hacia el análisis de la viga-buque, esfuerzos en estructuras navales, métodos matriciales, elementos finitos, placas, paneles reforzados, pandeo y criterios de diseño estructural.</p>
+  <p>Además del dominio de los contenidos, el curso busca que el estudiante desarrolle autonomía para enfrentarse a problemas nuevos, seleccionar modelos apropiados, utilizar herramientas computacionales y evaluar críticamente sus resultados.</p>
+  <dl class="course-meta-list">
+    <div><dt>Carrera</dt><dd>Ingeniería Naval</dd></div>
+    <div><dt>Inicio técnico</dt><dd>26 de agosto de 2026</dd></div>
+    <div><dt>Lunes · práctica</dt><dd>10:00–13:00 · CCLAB-2B</dd></div>
+    <div><dt>Miércoles · teoría</dt><dd>13:00–16:00 · A2-350</dd></div>
+  </dl>
+
+  <p class="course-principle"><strong>Idea central:</strong> Comprender · Modelar · Calcular · Verificar · Defender.</p>
+
+  <div class="course-pillars">
+    <article class="course-pillar course-pillar-monday">
+      <h3>Lunes: práctica</h3>
+      <p>La sesión práctica se desarrolla de 10:00 a 13:00 en el CCLAB-2B.</p>
+    </article>
+    <article class="course-pillar course-pillar-wednesday">
+      <h3>Miércoles: teoría</h3>
+      <p>La sesión teórica se desarrolla de 13:00 a 16:00 en el aula A2-350.</p>
+    </article>
+  </div>
+
+  <div class="polya-panel mt-4">
+    <h3>Metodología</h3>
+    <p class="course-cycle">Problema → Comprender → Concebir un plan → Modelar → Calcular → Verificar → Defender</p>
+    <p>La IA se utiliza para aprender, explorar, programar, contrastar y revisar; nunca como sustituto del razonamiento. Cada solución debe evidenciar comprensión, plan, ejecución, verificación y defensa.</p>
+    <p><strong>La IA debe ayudarte a pensar, no pensar por ti.</strong></p>
+  </div>
+
+  <div class="evaluation-panel mt-4">
+    <h3>Modo de evaluación</h3>
+    <p><strong>Sistema de Evaluación “G”</strong></p>
+    <p>De cuatro (04) prácticas calificadas, se obtiene el promedio de las tres (03) de mayor calificación, eliminándose la de menor nota.</p>
+    <p class="course-cycle"><strong>PP = (P₁ + P₂ + P₃) / 3</strong></p>
+    <p>Cada práctica puede integrar <strong>45 % de evaluación tradicional individual</strong> y <strong>55 % de trabajo aplicado e investigación</strong>. No se crean notas oficiales adicionales por asistencia, participación, laboratorio o proyecto.</p>
+    <p><strong>EP:</strong> Examen parcial<br>
+      <strong>EF:</strong> Examen final<br>
+      <strong>ES:</strong> Examen sustitutorio (reemplaza el examen más desfavorable)<br>
+      <strong>PF:</strong> Promedio final (aprobatorio si es mayor o igual a 10.00)</p>
+    <p class="course-cycle"><strong>PF = (PP + EP + EF) / 3</strong></p>
+  </div>
+</section>
+
+    </section>
+
+    <section class="course-detail-section">
+        
+
+<div class="course-info">
+  <div class="course-detail-title ">
+    <h2 class="font-black ">
+      Información del curso
+    </h2>
+  </div>
+  <div class="">
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        
+        <div class="">
+          
+          <h5 class=" text-muted ">
+            Instructors
+            </h5>
+          <div class="course-info-content ">
+            
+
+
+
+
+<ul class="list-unstyled m-0">
+  
+  
+  
+    
+  
+  <li>
+    <a class="course-info-instructor" href="mailto:evillacresg@uni.edu.pe">Msc. Ing. Eldred M. Villacrés Grandez</a>
+  </li>
+  
+  
+  
+    
+  
+  <li>
+    <span>evillacresg@uni.edu.pe</span>
+  </li>
+  <li class="mt-3">
+    <strong>Delegado</strong><br>
+    <span>Contreras Sanchez, Welinton Raul</span><br>
+    <a href="mailto:welinton.contreras.s@uni.pe">welinton.contreras.s@uni.pe</a>
+  </li>
+  <li class="mt-2 course-subdelegate">
+    <strong>Subdelegado</strong><br>
+    <span>Por definir</span>
+  </li>
+  <li class="mt-3 course-session">
+    <strong>Aula:</strong> A2-350<br>
+    <strong>T.P.L.:</strong> Teoría<br>
+    <strong>Horario:</strong> MI 13–16
+  </li>
+  <li class="mt-2 course-session">
+    <strong>Aula:</strong> CCLAB-2B<br>
+    <strong>T.P.L.:</strong> Práctica<br>
+    <strong>Horario:</strong> LU 10–13
+  </li>
+  
+</ul>
+
+
+          </div>
+        </div>
+        
+        
+          
+          
+            <div class="mt-4">
+              <h5 class=" text-muted ">
+                Departments
+              </h5>
+              <div class="course-info-content ">
+                
+
+
+
+
+<ul class="list-unstyled m-0">
+  
+  
+  
+    
+  
+  <li>
+    <a   class="course-info-department strip-link-offline"    href="https://ocw.mit.edu/search/?d=Mechanical&#43;Engineering"  >Mechanical Engineering</a>
+  </li>
+  
+</ul>
+
+
+              </div>
+            </div>
+          
+         
+        
+      </div>
+
+      
+      <div class="col-12 col-sm-6">
+        <div class="mt-4 mt-sm-0">
+          
+
+
+
+
+
+<div class=" ">
+  <h5 class=" text-muted ">
+    Topics
+  </h5>
+  <ul class="list-unstyled pb-2 m-0 ">
+      <li>
+
+
+
+
+
+
+
+
+<div class="position-relative pt-1 pb-1 pl-4 ml-n2 ">
+  
+  <button
+    type="button"
+    class="topic-toggle border-0 bg-transparent pl-0"
+    data-target="#subtopic-container_desktop_0"
+    data-toggle="collapse"
+    aria-controls="subtopic-container_desktop_0"
+    aria-expanded="true"
+    aria-label="Engineering subtopics"
+  >
+    <i aria-hidden="true" class="material-icons"></i>
+  </button>
+  
+  <span class="topic-text-wrapper">
+    <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Engineering"  >Engineering</a></span>
+</div>
+
+<ul
+  class="pl-4 subtopic-container collapse show list-unstyled"
+  id="subtopic-container_desktop_0"
+  aria-label="Subtopics"
+>
+  
+  
+  
+  <li>
+    <div class="position-relative pt-1 pb-1  pl-4 ">
+      
+      <button
+        class="topic-toggle border-0 bg-transparent pl-0"
+        data-target="#speciality-container_desktop_0_0"
+        data-toggle="collapse"
+        aria-controls="speciality-container_desktop_0_0"
+        aria-expanded="true"
+        aria-label="Mechanical Engineering specialties"
+      >
+        <i aria-hidden="true" class="material-icons"></i>
+      </button>
+      
+      <span class="topic-text-wrapper">
+        
+        <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Mechanical&#43;Engineering"  >Mechanical Engineering</a></span>
+    </div>
+    <ul
+      class="collapse show list-unstyled"
+      id="speciality-container_desktop_0_0"
+      aria-label="Specialties"
+    >
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Fluid&#43;Mechanics"  >Fluid Mechanics</a></span>
+      </li>
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Mechanical&#43;Design"  >Mechanical Design</a></span>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  
+  <li>
+    <div class="position-relative pt-1 pb-1  pl-4 ">
+      
+      <button
+        class="topic-toggle border-0 bg-transparent pl-0"
+        data-target="#speciality-container_desktop_0_1"
+        data-toggle="collapse"
+        aria-controls="speciality-container_desktop_0_1"
+        aria-expanded="true"
+        aria-label="Ocean Engineering specialties"
+      >
+        <i aria-hidden="true" class="material-icons"></i>
+      </button>
+      
+      <span class="topic-text-wrapper">
+        
+        <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Ocean&#43;Engineering"  >Ocean Engineering</a></span>
+    </div>
+    <ul
+      class="collapse show list-unstyled"
+      id="speciality-container_desktop_0_1"
+      aria-label="Specialties"
+    >
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Hydrodynamics"  >Hydrodynamics</a></span>
+      </li>
+      
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          
+          <a   class="text-black course-info-topic strip-link-offline"    href="https://ocw.mit.edu/search/?t=Ocean&#43;Structures"  >Ocean Structures</a></span>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+</ul>
+
+</li>
+      
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+    </section>
+
+    <section class="course-detail-section">
+      
+
+
+
+<div class="">
+  <h5 class="course-detail-title ">
+    Learning Resource Types
+  </h5>
+  <div>
+    <div class="row ">
+      
+        <div class=" m-2 ">
+          
+
+<div class="learning-resource-type-item">
+  <div class="d-flex">
+    <i aria-hidden="true" class="material-icons pr-1"><span class="material-icons-round">
+        co_present
+      </span></i>
+    <span>Información del docente</span>
+  </div>
+</div>
+
+        </div>
+      
+        <div class=" m-2 ">
+          
+
+<div class="learning-resource-type-item">
+  <div class="d-flex">
+    <i aria-hidden="true" class="material-icons pr-1">group_work</i>
+    <span>Projects</span>
+  </div>
+</div>
+
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    </section>
+  </div>
+</div>
+
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0 course-home-grid">
+          <div class="card">
+  <div class="card-body">
+    <div class="course-image-section-container">
+      <div class="course-image-container">
+        <div class="d-flex flex-column">
+          <img class="course-image" src="./static_resources/portada.gif"
+            alt="SHIP STRUCTURAL DESIGN: A Rationally-Based, Computer-Aided Optimization Approach"
+          />
+        </div>
+        <div class="course-image-caption">
+          <span>SHIP STRUCTURAL DESIGN<br>A Rationally-Based, Computer-Aided Optimization Approach</span>
+        </div>
+      </div>
+      <div>
+        
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+<div class="footer">
+    <div class="footer-main-content mx-auto">
+<!-- Pie de página de MIT eliminado.
+    	<div class="col-12 px-0">
+        	<div class="row align-items-center mx-0">
+            	<div class="col-12 col-md-8 px-0">
+					<div class="d-md-flex align-items-center">
+						<a href="https://openlearning.mit.edu/" target="_blank">
+							<img width="117px" src="./static_shared/images/mit_ol.4165342f87abb1da46fd.svg" alt="MIT Open Learning" />
+						</a>
+						<div class="ml-md-3 mt-4 mt-md-0">
+							<div class="font-weight-bold">
+								Over 2,500 courses & materials
+							</div>
+							<div>
+								Freely sharing knowledge with learners and educators around the world. <a href='https://ocw.mit.edu/about'>Learn more</a>
+							</div>
+						</div>
+					</div>
+            	</div>
+				<div class="col-12 col-md-4 px-0 d-none d-md-block">
+					<div class="d-flex justify-content-md-end">
+	<div>
+		<a href="https://www.facebook.com/MITOCW" target="_blank">
+			<img class="footer-social-icon ml-0" src="./static_shared/images/Facebook.d1f5caeb73d7d12505a2.png" alt="facebook"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://www.instagram.com/mitocw" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/Instagram.4df41828ffee4ff33d8a.png" alt="instagram"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://twitter.com/MITOCW" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/x-formerly-twitter-black.f8c75ad9f42902726d25.png" alt="x (formerly twitter)"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://www.youtube.com/mitocw" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/Youtube.7c9f62c4f1dc9515ebb4.png" alt="youtube"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://www.linkedin.com/company/mit-opencourseware/" target="_blank">
+			<img class="footer-social-icon nudge-up" src="./static_shared/images/linkedin-black.2f7f8a6a3899f5d1e1d6.png" alt="linkedin"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://bsky.app/profile/mitocw.bsky.social" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/bluesky-black.9f4523fcefa9b6f25be7.png" alt="bluesky"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://mastodon.social/@mitocw" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/mastodon-black.9e2de31a28415c123800.png" alt="mastodon"/>
+		</a>
+	</div>
+</div>
+
+				</div>
+        	</div>
+    	</div>
+		
+		<div class="col-12 mt-3 mt-md-4 px-0">
+			<div class="row align-items-center mx-0">
+            	<div class="col-12 col-md-8 px-0">
+					<div class="d-lg-flex">
+						<div class="pr-md-2 mt-2 mt-lg-0 d-none d-lg-block">
+							© 2001–2026 Massachusetts Institute of Technology
+						</div>
+						<div class="px-lg-2 mt-2 mt-lg-0">
+							<a href="https://accessibility.mit.edu" target="_blank">Accessibility</a>
+						</div>
+						<div class="px-lg-2 mt-2 mt-lg-0">
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
+						</div>
+						<div class="px-lg-2 mt-2 mt-lg-0">
+							<a class="hide-offline" href='https://ocw.mit.edu/pages/privacy-and-terms-of-use/'>Terms and Conditions</a>
+						</div>
+					</div>
+            	</div>
+				<div class="col-12 col-md-4 px-0">
+					<div class="d-flex justify-content-md-end mt-4 mt-lg-0">
+						<div>
+						Proud member of: 
+						<a href="https://www.oeglobal.org/" target="_blank">
+							<img class="oeg-logo" src="./static_shared/images/oeg_logo.8a31f7b87f30df2d0169.png" alt="Open Education Global"/>
+						</a>
+						</div>
+					</div>
+				</div>
+        	</div>
+		</div>
+
+		<div class="col-12 mt-5 px-0 d-md-none">
+			<div class="d-flex justify-content-md-end">
+	<div>
+		<a href="https://www.facebook.com/MITOCW" target="_blank">
+			<img class="footer-social-icon ml-0" src="./static_shared/images/Facebook.d1f5caeb73d7d12505a2.png" alt="facebook"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://www.instagram.com/mitocw" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/Instagram.4df41828ffee4ff33d8a.png" alt="instagram"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://twitter.com/MITOCW" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/x-formerly-twitter-black.f8c75ad9f42902726d25.png" alt="x (formerly twitter)"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://www.youtube.com/mitocw" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/Youtube.7c9f62c4f1dc9515ebb4.png" alt="youtube"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://www.linkedin.com/company/mit-opencourseware/" target="_blank">
+			<img class="footer-social-icon nudge-up" src="./static_shared/images/linkedin-black.2f7f8a6a3899f5d1e1d6.png" alt="linkedin"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://bsky.app/profile/mitocw.bsky.social" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/bluesky-black.9f4523fcefa9b6f25be7.png" alt="bluesky"/>
+		</a>
+	</div>
+	<div>
+		<a href="https://mastodon.social/@mitocw" target="_blank">
+			<img class="footer-social-icon" src="./static_shared/images/mastodon-black.9e2de31a28415c123800.png" alt="mastodon"/>
+		</a>
+	</div>
+</div>
+
+		</div>
+
+		<div class="col-12 mt-4 px-0 d-lg-none">
+			© 2001–2026 Massachusetts Institute of Technology
+		</div>
+    
+
+
+    
+-->
+    <script src="./static_shared/js/course_offline.d262d.js"></script>
+    
+
+
+
+
+
+    
+	</div>
+</div>
+
+    <script>
+function hideLinksOffline(){
+  if (!window.navigator.onLine) {
+    const stripLinks = document.querySelectorAll(".strip-link-offline")
+    const hideOffline = document.querySelectorAll(".hide-offline")
+    const showOffline = document.querySelectorAll(".show-offline")
+    Array.prototype.forEach.call(stripLinks, function(link) {
+      link.outerHTML = link.innerHTML
+    })
+    Array.prototype.forEach.call(hideOffline, function(link) {
+      link.classList.add("d-none")
+    })
+    Array.prototype.forEach.call(showOffline, function(link) {
+      link.classList.remove("d-none")
+    })
+  }
+}
+hideLinksOffline()
+</script>
+
+  </div>
+  
+
+<div
+  class="modal"
+  id="external-link-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="external-link-modal-title"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content p-3">
+      <div class="modal-header d-flex align-items-center">
+        <div class="d-flex align-items-center">
+          <img
+            class="modal-header-icon-img mr-3 align-baseline"
+            src="./static_shared/images/external_link.58bbdd86c00a2c146c36.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <h1 class="modal-title" id="external-link-modal-title">
+            You are leaving MIT OpenCourseWare
+          </h1>
+        </div>
+        <button type="button" class="border-0 p-0 bg-transparent d-flex" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="material-icons modal-header-icon">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please be advised that external sites may have terms and conditions, 
+        including license rights, that differ from ours. MIT OCW is not responsible 
+        for any content on third party sites, nor does a link suggest an endorsement 
+        of those sites and/or their content.
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-link link-button"
+          data-dismiss="modal"
+          >
+            Stay Here
+        </button>
+        <a
+          role="button"
+          class="btn btn-primary btn-continue"
+          target="_blank"
+          href="#"
+        >
+          Continue
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<script>
+function expandNav(e,t){t.classList.add("show"),e.querySelector(".course-nav-section-toggle, video-tab-toggle-section").setAttribute("aria-expanded","true")}function courseNav(){document.querySelectorAll(".course-nav, .transcript-header").forEach(e=>{e.querySelectorAll(".nav-link").forEach(e=>{const t=e.getAttribute("href")?e.getAttribute("href"):"";if(t.replace(/\/$/,"")===window.location.pathname.replace(/\/$/,"")){e.classList.add("active");const s=e.closest(".course-nav-parent");s?.classList.add("active");const o=e.dataset.uuid,t=e.closest(".course-nav-list-item"),n=t?.querySelector(".collapse"),i=Array.prototype.filter.call(document.querySelectorAll(".course-nav-section-toggle"),e=>e.dataset.uuid===o);t&&n&&i.length>0&&expandNav(t,n)}});const t=e.querySelector("a.nav-link.active");e.querySelectorAll(".course-nav-list-item").forEach(e=>{const n=e.querySelector(".collapse");n&&n.contains(t)&&expandNav(e,n)})})}courseNav()
+</script>
+
+  
+
+<script>
+(()=>{var e=()=>document.querySelectorAll("#course-content-section table"),t=()=>document.getElementById("course-content-section");function n(){const o=e(),n=t();if(!n)return;if(!window.ResizeObserver)return;const i=new ResizeObserver(()=>s());i.observe(n),o.forEach(e=>{const t=e.getElementsByTagName("th"),n=e.querySelectorAll("table tr");n.forEach(e=>{const n=e.querySelectorAll("td");n.forEach((e,s)=>{t.length>=s+1&&(n[s].dataset.title=t[s].innerText.trim().concat(": "))})})})}function s(){const s=e(),n=t();if(!n)return;s.forEach(e=>{const t=n.getBoundingClientRect(),o=+(e.dataset.minWidth??0);t.width>o&&e.classList.remove("mobile-table");const s=e.getBoundingClientRect();s.right>t.right&&(e.dataset.minWidth=`${s.width}`,e.classList.add("mobile-table"))})}n()})()
+</script>
+
+</body>
+
+</html>
