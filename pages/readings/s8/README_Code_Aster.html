@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Armadura de balcon en Code_Aster</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f3f5f8;color:#202c3a;font:17px/1.65 system-ui,Segoe UI,sans-serif}main{max-width:1040px;margin:32px auto;padding:32px 48px;background:white;border:1px solid #dde3eb;border-radius:12px}nav{border-bottom:1px solid #dde3eb;padding-bottom:16px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:8px 20px}a{color:#175bb4;text-underline-offset:3px}h1{font-size:2rem;line-height:1.25}h2{margin-top:2rem;line-height:1.3;color:#173b64}h3{line-height:1.4}pre{overflow:auto;padding:16px;background:#eff3f7;border-radius:6px;line-height:1.45}code{font-family:Consolas,monospace;font-size:.9em;overflow-wrap:anywhere}p code,td code{background:#eff3f7;padding:2px 4px;border-radius:3px}table{border-collapse:collapse;width:100%;display:block;overflow:auto;margin:18px 0}th,td{border:1px solid #d7dfe9;padding:9px 12px;text-align:left}th{background:#eaf0f7}tr:nth-child(even){background:#f8fafc}footer{border-top:1px solid #dde3eb;margin-top:32px;padding-top:16px;font-size:.85em;color:#586578}@media(max-width:650px){main{margin:0;padding:20px 16px;border-radius:0}h1{font-size:1.6rem}body{font-size:16px}}@media print{body{background:white}main{border:0;margin:0;padding:0;max-width:none}nav,footer{display:none}pre{white-space:pre-wrap}table{display:table;font-size:12px}a{color:inherit}}</style></head><body><main><nav aria-label="Guías de ejercicios"><a href="../index.html">Lecturas del curso</a> <a href="index.html">Índice</a> <a href="ejercicio1.html">Ejercicio 1</a> <a href="ejercicio2.html">Ejercicio 2</a> <a href="ejercicio3.html">Ejercicio 3</a> <a href="ejercicio4.html">Ejercicio 4</a> <a href="ejercicio5.html">Ejercicio 5</a></nav><h1 id="armadura-de-balcon-en-code_aster">Armadura de balcon en Code_Aster</h1>
+<p>Archivos de entrada: <code>armadura_balcon.comm</code> (calculo),
+<code>armadura_balcon.mail</code> (malla ASCII ASTER) y <code>armadura_balcon.export</code>
+(asociacion de archivos y unidades).</p>
+<h2 id="ejecucion">Ejecucion</h2>
+<p>En este equipo, hacer doble clic en <code>ejecutar_code_aster.bat</code>. Usa el motor
+17.4 instalado en <code>C:\Users\eldre\AppData\Local\code_aster\v2025</code>.
+Tambien se puede abrir <code>armadura_balcon.export</code> desde <code>bin\as_launch.exe</code>
+de esa instalacion.</p>
+<p>Desde una terminal con el entorno de Code_Aster cargado, situarse en esta
+carpeta y ejecutar:</p>
+<pre><code class="language-sh">run_aster armadura_balcon.export
+</code></pre>
+<p>En instalaciones antiguas con ASTK/as_run:</p>
+<pre><code class="language-sh">as_run armadura_balcon.export
+</code></pre>
+<p>Si la instalacion no tiene una version llamada <code>stable</code>, ajustar la linea
+<code>P version stable</code> al nombre instalado. En AsterStudy tambien se puede importar
+el <code>.comm</code> en modo texto: asociar la malla <code>.mail</code> a la unidad 20, la salida
+de tablas a la 8 y la salida MED a la 80. La malla se lee con <code>FORMAT='ASTER'</code>;
+el identificador <code>mail</code> del export asocia el archivo a la unidad 20.</p>
+<h2 id="modelo-y-salidas">Modelo y salidas</h2>
+<p>Se conservan lb, pulgadas y psi del script MATLAB. Se usan seis elementos
+axiales BARRE, con area 8 in² y E=1.90e6 psi. N1 y N3 tienen DX=DY=0.
+DZ=0 en todos los nodos elimina los mecanismos fuera del plano.
+Cada nodo N4 y N5 recibe FY=-500 lb. No se incluye peso propio.
+La madera se representa por su modulo longitudinal en un modelo axial lineal.</p>
+<ul>
+<li><code>.resu</code>: desplazamientos, reacciones, alargamientos, fuerzas y esfuerzos.</li>
+<li><code>.rmed</code>: desplazamientos y reacciones para visualizar en ParaVis.</li>
+<li><code>.mess</code>: diagnostico de la ejecucion.</li>
+</ul>
+<p>Los esfuerzos medios se recuperan a partir de los desplazamientos de
+Code_Aster con sigma=E<em>delta/L y N=A</em>sigma. Son positivos en traccion.
+Los esfuerzos por barra se entregan en la tabla de texto, no en el MED.</p>
+<p>Valores de referencia del calculo MATLAB y del equilibrio estatico:</p>
+<table>
+<thead>
+<tr>
+<th>Barra</th>
+<th style="text-align: right;">N [lb]</th>
+<th style="text-align: right;">Esfuerzo [psi]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: right;">-1500</td>
+<td style="text-align: right;">-187.5</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">1414.213562</td>
+<td style="text-align: right;">176.776695</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">62.5</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: right;">-500</td>
+<td style="text-align: right;">-62.5</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: right;">-707.106781</td>
+<td style="text-align: right;">-88.388348</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">62.5</td>
+</tr>
+</tbody>
+</table>
+<p>El desplazamiento vertical de N5 debe ser aproximadamente -0.019522 in.
+El script comprueba las fuerzas contra los valores anteriores.
+Verificado el 14/09/2026 con Code_Aster 17.4.0 para Windows: diagnostico
+<code>DIAGNOSTIC JOB : OK</code>, codigo de salida 0 y comprobacion de las seis fuerzas
+superada. Se generaron las tablas <code>.resu</code> y la salida <code>.rmed</code>.
+La extraccion de desplazamientos asocia los nodos por sus coordenadas porque
+esta version devuelve indices numericos en la columna NOEUD.</p>
+<p>Referencia de sintaxis: manual oficial AFFE_CARA_ELEM, U4.42.01:
+<a href="https://code-aster.org/doc/v12/en/man_u/u4/u4.42.01.pdf">https://code-aster.org/doc/v12/en/man_u/u4/u4.42.01.pdf</a></p>
+<footer>Material de S8-MI 16/09 — Aplicación del análisis de placas.</footer></main></body></html>
+

@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ejercicio 5: gu&#237;a del archivo de comandos de Code_Aster</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f3f5f8;color:#202c3a;font:17px/1.65 system-ui,Segoe UI,sans-serif}main{max-width:1040px;margin:32px auto;padding:32px 48px;background:white;border:1px solid #dde3eb;border-radius:12px}nav{border-bottom:1px solid #dde3eb;padding-bottom:16px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:8px 20px}a{color:#175bb4;text-underline-offset:3px}h1{font-size:2rem;line-height:1.25}h2{margin-top:2rem;line-height:1.3;color:#173b64}h3{line-height:1.4}pre{overflow:auto;padding:16px;background:#eff3f7;border-radius:6px;line-height:1.45}code{font-family:Consolas,monospace;font-size:.9em;overflow-wrap:anywhere}p code,td code{background:#eff3f7;padding:2px 4px;border-radius:3px}table{border-collapse:collapse;width:100%;display:block;overflow:auto;margin:18px 0}th,td{border:1px solid #d7dfe9;padding:9px 12px;text-align:left}th{background:#eaf0f7}tr:nth-child(even){background:#f8fafc}footer{border-top:1px solid #dde3eb;margin-top:32px;padding-top:16px;font-size:.85em;color:#586578}@media(max-width:650px){main{margin:0;padding:20px 16px;border-radius:0}h1{font-size:1.6rem}body{font-size:16px}}@media print{body{background:white}main{border:0;margin:0;padding:0;max-width:none}nav,footer{display:none}pre{white-space:pre-wrap}table{display:table;font-size:12px}a{color:inherit}}</style></head><body><main><nav aria-label="Guías de ejercicios"><a href="../index.html">Lecturas del curso</a> <a href="index.html">Índice</a> <a href="ejercicio1.html">Ejercicio 1</a> <a href="ejercicio2.html">Ejercicio 2</a> <a href="ejercicio3.html">Ejercicio 3</a> <a href="ejercicio4.html">Ejercicio 4</a> <a href="ejercicio5.html">Ejercicio 5</a></nav><h1 id="ejercicio-5-guia-del-archivo-de-comandos-de-code_aster">Ejercicio 5: guía del archivo de comandos de Code_Aster</h1>
+<p>Este ejercicio representa una viga W18×35 de 10 ft empotrada en A, sometida a una carga uniforme de 1000 lb/ft hacia abajo. B está en el punto medio y C en el extremo libre. Se calculan las deflexiones en B y C y el giro en C.</p>
+<h2 id="archivos-y-ejecucion">Archivos y ejecución</h2>
+<table>
+<thead>
+<tr>
+<th>Archivo</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ejercicio5.mesh</code></td>
+<td>Coordenadas, elementos y grupos; contenido en formato ASTER</td>
+</tr>
+<tr>
+<td><code>ejercicio5.comm</code></td>
+<td>Instrucciones de cálculo y posprocesamiento</td>
+</tr>
+<tr>
+<td><code>ejercicio5.export</code></td>
+<td>Parámetros de ejecución y asociación de archivos con unidades</td>
+</tr>
+</tbody>
+</table>
+<p>Desde una terminal con el entorno de Code_Aster cargado, ejecutar en esta carpeta:</p>
+<pre><code class="language-sh">run_aster ejercicio5.export
+</code></pre>
+<p>En este equipo también se puede usar PowerShell:</p>
+<pre><code class="language-powershell">&amp; 'C:\Users\eldre\AppData\Local\code_aster\v2025\17.4\bin\run_aster.bat' ejercicio5.export
+</code></pre>
+<p>Se generan <code>.mess</code> (diagnóstico), <code>.resu</code> (tablas) y <code>.rmed</code> (campos en formato MED). Este ejercicio no incluye exportación a Tecplot.</p>
+<h2 id="nombres-que-puedes-cambiar-y-palabras-clave-fijas">Nombres que puedes cambiar y palabras clave fijas</h2>
+<pre><code class="language-python">modelo = AFFE_MODELE(MAILLAGE=malla,
+    AFFE=_F(GROUP_MA='VIGA', PHENOMENE='MECANIQUE', MODELISATION='POU_D_E'))
+</code></pre>
+<p><code>modelo</code> y <code>malla</code> son nombres de variables elegidos por el autor. Puedes cambiarlos si actualizas todas sus referencias. <code>AFFE_MODELE</code> es un comando; <code>MAILLAGE</code>, <code>AFFE</code>, <code>GROUP_MA</code>, <code>PHENOMENE</code> y <code>MODELISATION</code> son palabras clave que deben conservarse. <code>_F(...)</code> agrupa parámetros dentro de un comando.</p>
+<p><code>'VIGA'</code> es un nombre de grupo elegido por el autor y definido en la malla. <code>'MECANIQUE'</code> y <code>'POU_D_E'</code> son valores reconocidos por Code_Aster; no admiten nombres arbitrarios. Python distingue mayúsculas y minúsculas y requiere conservar la indentación.</p>
+<h2 id="datos-y-unidades">Datos y unidades</h2>
+<p>Code_Aster requiere unidades coherentes: este archivo utiliza pulgadas, libras, psi y radianes.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th style="text-align: right;">Valor</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>E</code></td>
+<td style="text-align: right;"><code>29.0e6</code> psi</td>
+<td>Módulo de Young del acero</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td style="text-align: right;"><code>10.3</code> in²</td>
+<td>Área de la sección</td>
+</tr>
+<tr>
+<td><code>IZ</code></td>
+<td style="text-align: right;"><code>510.0</code> in⁴</td>
+<td>Segundo momento de área para la flexión estudiada</td>
+</tr>
+<tr>
+<td><code>altura</code></td>
+<td style="text-align: right;"><code>17.7</code> in</td>
+<td>Altura total; usada solo para el esfuerzo extremo de flexión</td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td style="text-align: right;"><code>120.0</code> in</td>
+<td>Longitud usada en la comprobación analítica</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td style="text-align: right;"><code>-1000.0/12.0</code> lb/in</td>
+<td>Carga uniforme; signo negativo hacia −Y</td>
+</tr>
+</tbody>
+</table>
+<p>Cambiar <code>L</code> no cambia la malla: para modificar la longitud hay que editar también las coordenadas de B y C en <code>.mesh</code>. <code>E</code> y <code>A</code> son variables de Python, no comandos. <code>#</code> introduce comentarios; <code>*</code> multiplica, <code>**</code> eleva a una potencia y <code>e6</code> significa multiplicar por un millón.</p>
+<h2 id="importar-comandos-e-iniciar-el-calculo">1. Importar comandos e iniciar el cálculo</h2>
+<pre><code class="language-python">from code_aster.Commands import *
+DEBUT()
+</code></pre>
+<p>La primera línea permite utilizar los comandos de Code_Aster desde Python. <code>DEBUT()</code> inicia el estudio. Para continuar un estudio guardado existe <code>POURSUITE</code>, que requiere una configuración de reinicio; no se sustituye sin preparar los archivos necesarios.</p>
+<h2 id="leer-la-malla-lire_maillage">2. Leer la malla: LIRE_MAILLAGE</h2>
+<pre><code class="language-python">malla = LIRE_MAILLAGE(UNITE=20, FORMAT='ASTER')
+</code></pre>
+<p>Lee la unidad lógica 20. El <code>.export</code> la vincula con el archivo:</p>
+<pre><code class="language-text">F mail ejercicio5.mesh D 20
+</code></pre>
+<p>La extensión <code>.mesh</code> no determina el formato: el contenido de este archivo es ASTER. Otra opción habitual es <code>FORMAT='MED'</code>, pero exige una malla realmente escrita en MED y la asociación correspondiente en el <code>.export</code>. Cambiar solo la extensión no convierte una malla.</p>
+<p><code>D</code> indica entrada y <code>R</code> salida. Los números son unidades lógicas, similares a las unidades de archivos de Fortran. Puedes elegir otra unidad para la malla si cambias tanto el <code>.export</code> como <code>UNITE</code> en el <code>.comm</code>. Conserva las unidades especiales 1 para comandos y 6 para mensajes.</p>
+<h2 id="elegir-los-elementos-affe_modele">3. Elegir los elementos: AFFE_MODELE</h2>
+<pre><code class="language-python">modelo = AFFE_MODELE(MAILLAGE=malla,
+    AFFE=_F(GROUP_MA='VIGA', PHENOMENE='MECANIQUE', MODELISATION='POU_D_E'))
+</code></pre>
+<p>Asigna elementos mecánicos de viga al grupo <code>VIGA</code>. <code>GROUP_MA</code> selecciona un grupo de elementos; <code>GROUP_NO</code> selecciona un grupo de nodos. <code>TOUT='OUI'</code> permite seleccionar todos los elementos en los comandos que lo admiten.</p>
+<h3 id="opciones-de-modelizacion">Opciones de modelización</h3>
+<table>
+<thead>
+<tr>
+<th>Valor</th>
+<th>Qué representa</th>
+<th>Aplicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POU_D_E</code></td>
+<td>Viga recta de Euler-Bernoulli</td>
+<td>Flexión sin deformación por cortante; modelo actual</td>
+</tr>
+<tr>
+<td><code>POU_D_T</code></td>
+<td>Viga recta de Timoshenko</td>
+<td>Incluye deformación por cortante</td>
+</tr>
+<tr>
+<td><code>POU_D_T_GD</code></td>
+<td>Viga de Timoshenko con grandes desplazamientos y rotaciones</td>
+<td>Análisis geométricamente no lineal</td>
+</tr>
+<tr>
+<td><code>POU_D_TG</code></td>
+<td>Viga de Timoshenko con alabeo de la sección</td>
+<td>Problemas donde el alabeo es importante</td>
+</tr>
+<tr>
+<td><code>POU_D_TGM</code></td>
+<td>Formulación con alabeo y comportamiento multifibra</td>
+<td>Estudios avanzados del comportamiento de la sección</td>
+</tr>
+<tr>
+<td><code>BARRE</code></td>
+<td>Barra axial</td>
+<td>Armaduras articuladas; no representa la flexión de este voladizo</td>
+</tr>
+</tbody>
+</table>
+<p>Las opciones se describen en los manuales <a href="https://code-aster.org/doc/v17/manuals/man_u/u3/u3.11.01/index.html">U3.11.01</a>, <a href="https://code-aster.org/doc/default/fr/man_u/u3/u3.11.05.pdf">U3.11.05</a> y <a href="https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u3/u3.11.04/index.html">U3.11.04</a>.</p>
+<p>Para cambiar a Timoshenko hay que completar las propiedades de cortante de la sección, revisar las opciones requeridas por el modelo y modificar la comprobación analítica. Para grandes desplazamientos hay que preparar un análisis no lineal, normalmente con <code>STAT_NON_LINE</code>; cambiar únicamente <code>MODELISATION</code> no basta. También es posible representar la viga con láminas o sólidos si se necesitan detalles locales de la sección o las uniones.</p>
+<h2 id="definir-el-material-defi_materiau">4. Definir el material: DEFI_MATERIAU</h2>
+<pre><code class="language-python">acero = DEFI_MATERIAU(ELAS=_F(E=E, NU=0.3))
+</code></pre>
+<p><code>ELAS</code> define elasticidad isotrópica lineal; <code>E</code> es el módulo de Young y <code>NU</code> el coeficiente de Poisson. En <code>E=E</code>, el primer <code>E</code> es la palabra clave fija y el segundo es la variable definida al inicio.</p>
+<p>Existen otras leyes de material, como elasticidad ortótropa y plasticidad. Su uso requiere parámetros adicionales y una combinación compatible de elemento, ley de comportamiento y procedimiento de análisis.</p>
+<h2 id="asignar-el-material-affe_materiau">5. Asignar el material: AFFE_MATERIAU</h2>
+<pre><code class="language-python">material = AFFE_MATERIAU(MAILLAGE=malla,
+    AFFE=_F(TOUT='OUI', MATER=acero))
+</code></pre>
+<p>Asigna el material <code>acero</code> a todos los elementos. Puedes emplear <code>GROUP_MA</code> para asignar materiales distintos a diferentes grupos.</p>
+<h2 id="definir-seccion-y-orientacion-affe_cara_elem">6. Definir sección y orientación: AFFE_CARA_ELEM</h2>
+<pre><code class="language-python">seccion = AFFE_CARA_ELEM(MODELE=modelo,
+    POUTRE=_F(GROUP_MA='VIGA', SECTION='GENERALE',
+              CARA=('A','IY','IZ','JX'), VALE=(A,1.0,IZ,1.0)),
+    ORIENTATION=_F(GROUP_MA='VIGA', CARA='VECT_Y', VALE=(0.,1.,0.)))
+</code></pre>
+<p><code>POUTRE</code> define propiedades de viga. <code>CARA</code> enumera las propiedades y <code>VALE</code> sus valores, en el mismo orden:</p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Significado</th>
+<th>Unidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A</code></td>
+<td>Área</td>
+<td>in²</td>
+</tr>
+<tr>
+<td><code>IY</code></td>
+<td>Segundo momento de área respecto al eje local y</td>
+<td>in⁴</td>
+</tr>
+<tr>
+<td><code>IZ</code></td>
+<td>Segundo momento de área respecto al eje local z</td>
+<td>in⁴</td>
+</tr>
+<tr>
+<td><code>JX</code></td>
+<td>Constante de torsión</td>
+<td>in⁴</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Los valores <code>IY=1</code> y <code>JX=1</code> son auxiliares; no son propiedades reales del perfil W18×35.</strong> No influyen en este análisis plano porque los movimientos asociados están bloqueados. Si habilitas flexión fuera del plano o torsión, debes introducir sus valores reales.</p>
+<p><code>VECT_Y</code> orienta el eje local y mediante el vector indicado. Aquí coincide con Y global; la viga está alineada con X y la flexión por la carga vertical utiliza <code>IZ</code>.</p>
+<p>Otras opciones de sección son <code>RECTANGLE</code> y <code>CERCLE</code>, definidas mediante dimensiones geométricas. Para la sección en I de este ejercicio se usa <code>GENERALE</code>, con propiedades conocidas. No se debe reemplazar por un rectángulo de igual altura suponiendo que conserva su rigidez. Las propiedades y opciones se documentan en <a href="https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u4/u4.42.01/Mot_cle_POUTRE.html">AFFE_CARA_ELEM, U4.42.01</a>.</p>
+<h2 id="apoyos-y-cargas-affe_char_meca">7. Apoyos y cargas: AFFE_CHAR_MECA</h2>
+<pre><code class="language-python">cargas = AFFE_CHAR_MECA(MODELE=modelo,
+    DDL_IMPO=(_F(GROUP_NO='NODOS', DZ=0., DRX=0., DRY=0.),
+              _F(GROUP_NO='EMPOTRA', DX=0., DY=0., DRZ=0.)),
+    FORCE_POUTRE=_F(GROUP_MA='VIGA', FY=q))
+</code></pre>
+<p><code>DDL_IMPO</code> impone grados de libertad:</p>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DX</code>, <code>DY</code>, <code>DZ</code></td>
+<td>Desplazamientos según X, Y y Z</td>
+</tr>
+<tr>
+<td><code>DRX</code>, <code>DRY</code>, <code>DRZ</code></td>
+<td>Rotaciones alrededor de X, Y y Z</td>
+</tr>
+</tbody>
+</table>
+<p>Bloquear <code>DZ</code>, <code>DRX</code> y <code>DRY</code> en todos los nodos hace que el modelo trabaje en el plano XY. Bloquear <code>DX</code>, <code>DY</code> y <code>DRZ</code> en A completa el empotramiento. B y C conservan el desplazamiento vertical y el giro de flexión.</p>
+<p><code>FORCE_POUTRE</code> aplica una carga distribuida por unidad de longitud. <code>FY=q</code> utiliza el eje Y global. Otras componentes globales incluyen <code>FX</code> y <code>FZ</code>; también existen componentes locales de carga de viga. Para fuerzas concentradas en nodos se usa <code>FORCE_NODALE</code>; para desplazamientos impuestos, <code>DDL_IMPO</code>. Para cargas definidas mediante funciones existe <code>AFFE_CHAR_MECA_F</code>. Estas opciones se documentan en <a href="https://www.code-aster.org/V2/doc/v14/en/man_u/u4/u4.44.01.pdf">AFFE_CHAR_MECA, U4.44.01</a>.</p>
+<h2 id="resolver-meca_statique">8. Resolver: MECA_STATIQUE</h2>
+<pre><code class="language-python">resu = MECA_STATIQUE(MODELE=modelo, CHAM_MATER=material,
+    CARA_ELEM=seccion, EXCIT=_F(CHARGE=cargas))
+</code></pre>
+<p>Resuelve el equilibrio estático lineal usando el modelo, material, sección y cargas. <code>resu</code> guarda el resultado. <code>EXCIT</code> puede contener varias cargas. Para análisis no lineales existe <code>STAT_NON_LINE</code> y para análisis dinámicos hay procedimientos específicos; requieren una configuración diferente.</p>
+<h2 id="calcular-campos-adicionales-calc_champ">9. Calcular campos adicionales: CALC_CHAMP</h2>
+<pre><code class="language-python">resu = CALC_CHAMP(reuse=resu, RESULTAT=resu, FORCE='REAC_NODA')
+</code></pre>
+<p>Calcula las reacciones nodales y las añade al resultado existente. <code>reuse=resu</code> permite enriquecer el mismo objeto. En nodos de viga, las componentes de traslación representan fuerzas y las de rotación momentos. Otros campos, como esfuerzos internos o tensiones, dependen del tipo de elemento y deben seleccionarse según los campos admitidos por su documentación.</p>
+<h2 id="extraer-resultados-post_releve_t">10. Extraer resultados: POST_RELEVE_T</h2>
+<pre><code class="language-python">despl = POST_RELEVE_T(ACTION=_F(INTITULE='B y C: deflexion [in], giro [rad]',
+    OPERATION='EXTRACTION', RESULTAT=resu, NOM_CHAM='DEPL',
+    GROUP_NO='PUNTOS', NOM_CMP=('DX','DY','DRZ')))
+</code></pre>
+<p>Genera una tabla con el campo <code>DEPL</code> en el grupo <code>PUNTOS</code>, formado por B y C. <code>NOM_CMP</code> selecciona componentes e <code>INTITULE</code> da un título. La extracción de reacciones usa el mismo comando, pero con <code>NOM_CHAM='REAC_NODA'</code> y el grupo <code>EMPOTRA</code>.</p>
+<p>En <code>DEPL</code>, <code>DRZ</code> es giro en radianes; en <code>REAC_NODA</code>, <code>DRZ</code> es el momento de reacción alrededor de Z en lb-in. La interpretación depende del campo.</p>
+<h2 id="escribir-tablas-impr_table">11. Escribir tablas: IMPR_TABLE</h2>
+<pre><code class="language-python">IMPR_TABLE(TABLE=despl, UNITE=8)
+IMPR_TABLE(TABLE=reacc, UNITE=8)
+</code></pre>
+<p>Escribe las tablas en la unidad 8, asociada en <code>.export</code> a <code>ejercicio5.resu</code>. Puedes usar otra unidad de salida si la defines también en <code>.export</code>.</p>
+<h2 id="comprobacion-y-posprocesamiento-en-python">12. Comprobación y posprocesamiento en Python</h2>
+<pre><code class="language-python">datos = despl.EXTR_TABLE().values()
+</code></pre>
+<p>Convierte la tabla de Code_Aster en datos accesibles desde Python. El ciclo <code>for</code> identifica los nodos por su coordenada X y compara los desplazamientos y giros con las fórmulas analíticas del voladizo:</p>
+<pre><code class="language-python">v = q*x*x*(6.*L*L-4.*L*x+x*x)/(24.*E*IZ)
+giro = q*x*(3.*L*L-3.*L*x+x*x)/(6.*E*IZ)
+</code></pre>
+<p><code>assert</code> detiene la ejecución si la comparación falla. <code>print</code> muestra los resultados en el registro. Este bloque comprueba el cálculo; no define la malla ni resuelve el modelo.</p>
+<p>Las fórmulas solo corresponden a una viga uniforme de Euler-Bernoulli empotrada en A bajo carga distribuida constante. Si cambias el modelo, los apoyos, la sección o el tipo de carga, debes revisar la comprobación. La expresión <code>abs(q)*L*L/2.*(altura/2.)/IZ</code> calcula la magnitud del esfuerzo máximo de flexión en A con la fórmula M·c/I; no es una extracción de tensiones del campo de Code_Aster.</p>
+<h2 id="exportar-campos-impr_resu">13. Exportar campos: IMPR_RESU</h2>
+<pre><code class="language-python">IMPR_RESU(FORMAT='MED', UNITE=80,
+    RESU=_F(RESULTAT=resu, NOM_CHAM=('DEPL','REAC_NODA')))
+</code></pre>
+<p>Escribe desplazamientos y reacciones en <code>ejercicio5.rmed</code>, asociado a la unidad 80. MED se puede visualizar en herramientas como ParaVis. Esta instrucción no genera formato Tecplot: para eso hace falta escribir un archivo compatible, como el bloque ASCII del ejercicio3.</p>
+<h2 id="terminar-fin">14. Terminar: FIN</h2>
+<pre><code class="language-python">FIN()
+</code></pre>
+<p>Finaliza normalmente el estudio.</p>
+<h2 id="resultados-de-referencia">Resultados de referencia</h2>
+<p>Verificado con Code_Aster 17.4: diagnóstico <code>DIAGNOSTIC JOB : OK</code> y comparación analítica superada.</p>
+<table>
+<thead>
+<tr>
+<th>Resultado</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deflexión en B</td>
+<td style="text-align: right;">−0.0517241379 in</td>
+</tr>
+<tr>
+<td>Deflexión en C</td>
+<td style="text-align: right;">−0.146044625 in</td>
+</tr>
+<tr>
+<td>Giro en C</td>
+<td style="text-align: right;">−0.00162271805 rad</td>
+</tr>
+<tr>
+<td>Reacción vertical en A</td>
+<td style="text-align: right;">+10000 lb</td>
+</tr>
+<tr>
+<td>Momento de reacción en A alrededor de Z</td>
+<td style="text-align: right;">+600000 lb-in</td>
+</tr>
+</tbody>
+</table>
+<p>Los desplazamientos negativos son hacia abajo y el giro negativo es horario visto desde +Z.</p>
+<footer>Material de S8-MI 16/09 — Aplicación del análisis de placas.</footer></main></body></html>
+

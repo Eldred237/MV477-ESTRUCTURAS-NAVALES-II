@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ejercicio 3: armadura de balc&#243;n con exportaci&#243;n a Tecplot</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f3f5f8;color:#202c3a;font:17px/1.65 system-ui,Segoe UI,sans-serif}main{max-width:1040px;margin:32px auto;padding:32px 48px;background:white;border:1px solid #dde3eb;border-radius:12px}nav{border-bottom:1px solid #dde3eb;padding-bottom:16px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:8px 20px}a{color:#175bb4;text-underline-offset:3px}h1{font-size:2rem;line-height:1.25}h2{margin-top:2rem;line-height:1.3;color:#173b64}h3{line-height:1.4}pre{overflow:auto;padding:16px;background:#eff3f7;border-radius:6px;line-height:1.45}code{font-family:Consolas,monospace;font-size:.9em;overflow-wrap:anywhere}p code,td code{background:#eff3f7;padding:2px 4px;border-radius:3px}table{border-collapse:collapse;width:100%;display:block;overflow:auto;margin:18px 0}th,td{border:1px solid #d7dfe9;padding:9px 12px;text-align:left}th{background:#eaf0f7}tr:nth-child(even){background:#f8fafc}footer{border-top:1px solid #dde3eb;margin-top:32px;padding-top:16px;font-size:.85em;color:#586578}@media(max-width:650px){main{margin:0;padding:20px 16px;border-radius:0}h1{font-size:1.6rem}body{font-size:16px}}@media print{body{background:white}main{border:0;margin:0;padding:0;max-width:none}nav,footer{display:none}pre{white-space:pre-wrap}table{display:table;font-size:12px}a{color:inherit}}</style></head><body><main><nav aria-label="Guías de ejercicios"><a href="../index.html">Lecturas del curso</a> <a href="index.html">Índice</a> <a href="ejercicio1.html">Ejercicio 1</a> <a href="ejercicio2.html">Ejercicio 2</a> <a href="ejercicio3.html">Ejercicio 3</a> <a href="ejercicio4.html">Ejercicio 4</a> <a href="ejercicio5.html">Ejercicio 5</a></nav><h1 id="ejercicio-3-armadura-de-balcon-con-exportacion-a-tecplot">Ejercicio 3: armadura de balcón con exportación a Tecplot</h1>
+<h2 id="problema-y-geometria">Problema y geometría</h2>
+<p>Armadura plana de balcón, cinco nodos y seis barras. Material: madera Douglas-fir con E = 1.90×10⁶ psi y área uniforme de 8 in². N4 y N5 reciben cada uno FY = −500 lb; no se añade peso propio.</p>
+<table>
+<thead>
+<tr>
+<th>Nodo</th>
+<th style="text-align: right;">X [in]</th>
+<th style="text-align: right;">Y [in]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>N2</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>N3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td>N4</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td>N5</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">36</td>
+</tr>
+</tbody>
+</table>
+<p>Las barras, en orden, conectan N1–N2, N3–N2, N3–N4, N2–N4, N2–N5 y N4–N5. N1 y N3 tienen DX=DY=0. DZ=0 en todos los nodos elimina movimientos fuera del plano.</p>
+<h2 id="resultados-de-referencia">Resultados de referencia</h2>
+<table>
+<thead>
+<tr>
+<th>Barra</th>
+<th style="text-align: right;">Fuerza [lb]</th>
+<th style="text-align: right;">Esfuerzo [psi]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: right;">−1500</td>
+<td style="text-align: right;">−187.5</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">1414.213562</td>
+<td style="text-align: right;">176.776695</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">62.5</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: right;">−500</td>
+<td style="text-align: right;">−62.5</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: right;">−707.106781</td>
+<td style="text-align: right;">−88.388348</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">62.5</td>
+</tr>
+</tbody>
+</table>
+<p>DY de N5 ≈ −0.019522044 in. Estos valores corresponden a la geometría, cargas y propiedades originales.</p>
+<h2 id="archivos-y-ejecucion">Archivos y ejecución</h2>
+<p>Entradas: <code>ejercicio3.mesh</code> (malla ASTER), <code>ejercicio3.comm</code> (cálculo) y <code>ejercicio3.export</code> (configuración). El ejecutor <code>ejecutar_code_aster.bat</code> usa la instalación local de Code_Aster; puedes hacer doble clic sobre él.</p>
+<p>Desde una terminal con el entorno de Code_Aster cargado, ejecutar en esta carpeta:</p>
+<pre><code class="language-sh">run_aster ejercicio3.export
+</code></pre>
+<p>Los resultados son <code>ejercicio3.mess</code>, <code>ejercicio3.resu</code> y <code>ejercicio3.rmed</code>.</p>
+<h2 id="datos-editables">Datos editables</h2>
+<p>Las variables <code>E</code>, <code>A</code> y <code>FY</code> al inicio controlan el material, área y carga. En <code>E=E</code>, el primer E es una palabra clave y el segundo la variable Python. Cambiar los nombres de grupos o de elementos requiere actualizar sus referencias.</p>
+<h2 id="como-leer-el.comm">Cómo leer el .comm</h2>
+<p>Los archivos <code>.comm</code> combinan Python con comandos de Code_Aster. En <code>modelo = AFFE_MODELE(...)</code>, <code>modelo</code> es un nombre elegido por el autor y <code>AFFE_MODELE</code> es un comando fijo. Puedes renombrar variables actualizando todas sus referencias. Las palabras clave como <code>MAILLAGE</code>, <code>MODELE</code> y <code>GROUP_MA</code> deben conservarse. <code>_F(...)</code> agrupa opciones.</p>
+<p>Los nombres de grupos, como <code>'BARRAS'</code>, deben coincidir con los definidos en la malla. <code>GROUP_MA</code> selecciona elementos y <code>GROUP_NO</code> selecciona nodos. <code>TOUT='OUI'</code> significa seleccionar todos, según el contexto.</p>
+<h3 id="comandos-del-calculo">Comandos del cálculo</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Función y parámetros principales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>from code_aster.Commands import *</code></td>
+<td>Importa los comandos para usarlos desde Python</td>
+</tr>
+<tr>
+<td><code>DEBUT()</code></td>
+<td>Inicia un estudio</td>
+</tr>
+<tr>
+<td><code>LIRE_MAILLAGE</code></td>
+<td>Lee la malla: <code>UNITE=20</code> indica su archivo lógico y <code>FORMAT='ASTER'</code> su formato</td>
+</tr>
+<tr>
+<td><code>AFFE_MODELE</code></td>
+<td>Asigna el tipo de elemento; <code>PHENOMENE='MECANIQUE'</code> selecciona el problema mecánico</td>
+</tr>
+<tr>
+<td><code>DEFI_MATERIAU</code></td>
+<td>Define el material; <code>ELAS=_F(E=..., NU=...)</code> es elasticidad isotrópica lineal</td>
+</tr>
+<tr>
+<td><code>AFFE_MATERIAU</code></td>
+<td>Asigna el material a todos los elementos o a grupos específicos</td>
+</tr>
+<tr>
+<td><code>AFFE_CARA_ELEM</code></td>
+<td>Define la sección: <code>BARRE</code>, <code>SECTION='GENERALE'</code>, <code>CARA='A'</code> y <code>VALE</code> establecen el área</td>
+</tr>
+<tr>
+<td><code>AFFE_CHAR_MECA</code></td>
+<td>Define apoyos con <code>DDL_IMPO</code> y cargas nodales con <code>FORCE_NODALE</code></td>
+</tr>
+<tr>
+<td><code>MECA_STATIQUE</code></td>
+<td>Resuelve el equilibrio estático lineal; recibe modelo, material, sección y cargas mediante <code>EXCIT</code></td>
+</tr>
+<tr>
+<td><code>CALC_CHAMP</code></td>
+<td>Añade campos al resultado; <code>FORCE='REAC_NODA'</code> calcula reacciones y <code>reuse=resu</code> actualiza el resultado</td>
+</tr>
+<tr>
+<td><code>POST_RELEVE_T</code></td>
+<td>Extrae resultados en una tabla: <code>NOM_CHAM='DEPL'</code> selecciona desplazamientos, <code>'REAC_NODA'</code> reacciones y <code>NOM_CMP</code> componentes</td>
+</tr>
+<tr>
+<td><code>CREA_TABLE</code></td>
+<td>Crea la tabla de axiales; <code>PARA</code> nombra columnas, <code>LISTE_R</code> contiene reales, <code>LISTE_I</code> enteros y <code>LISTE_K</code> textos</td>
+</tr>
+<tr>
+<td><code>IMPR_TABLE</code></td>
+<td>Escribe una tabla en la unidad indicada</td>
+</tr>
+<tr>
+<td><code>IMPR_RESU</code></td>
+<td>Exporta campos; aquí <code>FORMAT='MED'</code> y <code>UNITE=80</code></td>
+</tr>
+<tr>
+<td><code>FIN()</code></td>
+<td>Finaliza el estudio</td>
+</tr>
+</tbody>
+</table>
+<p><code>DX</code>, <code>DY</code> y <code>DZ</code> son desplazamientos globales. En el campo de reacciones, esas componentes representan fuerzas. Los elementos <code>BARRE</code> trabajan solo axialmente; no tienen los giros de una viga de flexión.</p>
+<h3 id="unidades-y-archivos">Unidades y archivos</h3>
+<p>Se usan pulgadas, lb y psi; el área está en in². Code_Aster requiere coherencia de unidades. La geometría dibujada en pies se multiplica por 12.</p>
+<p>En el <code>.export</code>, <code>D</code> indica entrada y <code>R</code> salida. Los números son unidades lógicas, similares a Fortran; no son nombres de archivos.</p>
+<table>
+<thead>
+<tr>
+<th>Unidad</th>
+<th>Asociación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Comandos <code>.comm</code></td>
+</tr>
+<tr>
+<td>20</td>
+<td>Malla de entrada</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Mensajes <code>.mess</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Tablas <code>.resu</code></td>
+</tr>
+<tr>
+<td>80</td>
+<td>Campos MED <code>.rmed</code></td>
+</tr>
+</tbody>
+</table>
+<p>Para cambiar la unidad de la malla, modifica tanto el número del <code>.export</code> como <code>UNITE</code> en <code>LIRE_MAILLAGE</code>. Conserva las unidades especiales 1 y 6. La extensión <code>.mesh</code> o <code>.mail</code> no transforma el contenido: estas mallas usan formato ASTER. Para usar <code>FORMAT='MED'</code> hace falta una malla realmente escrita en MED.</p>
+<h2 id="posprocesamiento-en-python">Posprocesamiento en Python</h2>
+<p><code>despl.EXTR_TABLE().values()</code> obtiene los datos de la tabla. <code>xy</code> contiene coordenadas y <code>conex</code> pares de nodos por barra. El código asocia los desplazamientos a los nodos por sus coordenadas, calcula la longitud y dirección de cada barra y obtiene:</p>
+<pre><code class="language-text">alargamiento = (desplazamiento_final - desplazamiento_inicial) · dirección
+esfuerzo = E × alargamiento / longitud
+fuerza axial = área × esfuerzo
+</code></pre>
+<p>Tracción es positiva y compresión negativa. Estas fuerzas se recuperan a partir de los desplazamientos de Code_Aster; el bloque Python no vuelve a resolver la estructura.</p>
+<p>Si cambias la malla, actualiza también <code>xy</code>, <code>conex</code> y las etiquetas de la tabla. Si cambia la cantidad de barras, actualiza los identificadores de <code>CREA_TABLE</code>. Python exige indentación; <code>*</code> multiplica y <code>**</code> eleva a una potencia.</p>
+<h2 id="otras-opciones-y-cuando-usarlas">Otras opciones y cuándo usarlas</h2>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MODELISATION='BARRE'</code></td>
+<td>Armaduras articuladas con esfuerzo axial; modelo actual</td>
+</tr>
+<tr>
+<td><code>MODELISATION='POU_D_E'</code></td>
+<td>Viga Euler-Bernoulli con flexión sin deformación por cortante</td>
+</tr>
+<tr>
+<td><code>MODELISATION='POU_D_T'</code></td>
+<td>Viga Timoshenko, incluyendo deformación por cortante</td>
+</tr>
+<tr>
+<td><code>MODELISATION='POU_D_T_GD'</code></td>
+<td>Viga con grandes desplazamientos y rotaciones</td>
+</tr>
+<tr>
+<td><code>FORCE_POUTRE</code></td>
+<td>Carga distribuida por unidad de longitud sobre elementos de viga</td>
+</tr>
+<tr>
+<td><code>AFFE_CHAR_MECA_F</code></td>
+<td>Cargas definidas mediante funciones</td>
+</tr>
+<tr>
+<td><code>STAT_NON_LINE</code></td>
+<td>Procedimiento para análisis no lineales</td>
+</tr>
+</tbody>
+</table>
+<p>Pasar de barra a viga requiere definir inercias, torsión, orientación y condiciones sobre los giros. No basta con cambiar <code>MODELISATION</code>. Si necesitas deformación por cortante debes completar las propiedades requeridas de la sección; los grandes desplazamientos requieren preparar un análisis no lineal. Puedes asignar materiales y áreas diferentes usando distintos grupos.</p>
+<p>Para estas armaduras, <code>NU</code> completa la definición elástica, pero la rigidez axial depende de E y A. La madera del balcón se aproxima mediante su módulo longitudinal; no se modela aquí su comportamiento ortótropo completo.</p>
+<p>Consulta los manuales oficiales de <a href="https://code-aster.org/doc/v17/manuals/man_u/u3/u3.11.01/index.html">modelos de vigas y barras</a>, <a href="https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u4/u4.42.01/Mot_cle_POUTRE.html">propiedades de sección</a> y <a href="https://www.code-aster.org/V2/doc/v14/en/man_u/u4/u4.44.01.pdf">cargas mecánicas</a>.</p>
+<h2 id="exportacion-a-tecplot-bloque-adicional-de-este-ejercicio">Exportación a Tecplot: bloque adicional de este ejercicio</h2>
+<p>El ejercicio3 usa la misma estructura y cargas que el ejercicio2, con un bloque adicional que escribe <code>ejercicio3.dat</code>. No necesita un intérprete Python separado: utiliza el entorno del .comm.</p>
+<p>La asociación de salida es:</p>
+<pre><code class="language-text">F libr ejercicio3.dat R 81
+</code></pre>
+<p><code>libr</code> representa un archivo libre y no convierte datos. El bloque Python <code>with open('fort.81', 'w', encoding='ascii') as archivo:</code> escribe su contenido y el ejecutor lo copia al nombre indicado en el .export.</p>
+<table>
+<thead>
+<tr>
+<th>Instrucción o dato</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TITLE</code></td>
+<td>Título del conjunto</td>
+</tr>
+<tr>
+<td><code>VARIABLES</code></td>
+<td>Nombres y orden de las siete variables</td>
+</tr>
+<tr>
+<td><code>ZONE</code></td>
+<td>Define cada zona</td>
+</tr>
+<tr>
+<td><code>N</code>, <code>E</code></td>
+<td>Número de nodos y elementos</td>
+</tr>
+<tr>
+<td><code>ZONETYPE=FELINESEG</code></td>
+<td>Barras de dos nodos</td>
+</tr>
+<tr>
+<td><code>DATAPACKING=BLOCK</code></td>
+<td>Valores agrupados por variable</td>
+</tr>
+<tr>
+<td><code>VARLOCATION=([6-7]=CELLCENTERED)</code></td>
+<td>Fuerza y esfuerzo definidos por barra</td>
+</tr>
+<tr>
+<td><code>indices</code></td>
+<td>Convierte nombres de nodos en índices de conectividad, comenzando en 1</td>
+</tr>
+<tr>
+<td><code>archivo.write</code></td>
+<td>Escribe texto y números</td>
+</tr>
+<tr>
+<td><code>math.hypot</code></td>
+<td>Calcula la magnitud del desplazamiento</td>
+</tr>
+</tbody>
+</table>
+<p>Se exportan X_in, Y_in, Ux_in, Uy_in, U_in, N_lb y Sigma_psi. Las dos zonas son Original y Deformada x100. <code>escala_tecplot=100.0</code> amplifica solo las coordenadas de la segunda zona; las variables de resultados conservan sus valores reales.</p>
+<p>Abrir el .dat con Tecplot Data Loader, elegir Cartesian 2D, activar Mesh y seleccionar las zonas. La estructura se documenta en la <a href="https://tecplot.azureedge.net/products/360/2024r1m1/360-data-format.html">guía de formato Tecplot</a>.</p>
+<p>Este exportador es plano. No debe copiarse sin cambios al ejercicio4: allí harían falta Z, Uz y la magnitud tridimensional. Para vigas, dibujar segmentos entre nodos deformados tampoco reproduce por sí solo la curvatura dentro de cada elemento.</p>
+<footer>Material de S8-MI 16/09 — Aplicación del análisis de placas.</footer></main></body></html>
+
